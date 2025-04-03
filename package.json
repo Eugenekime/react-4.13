@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://Eugenekime.github.io/react-4.13",
+  "homepage": "https://github.com/Eugenekime/react-4.13",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
