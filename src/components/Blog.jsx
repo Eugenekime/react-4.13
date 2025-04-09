@@ -1,6 +1,7 @@
 import { useParams, Navigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { format } from "date-fns";
+import ArticlePreview from "./ArticlePreview";
+import styled from "styled-components";
 import ReactMarkdown from "react-markdown";
 
 export default function Blog() {
@@ -13,69 +14,54 @@ export default function Blog() {
       const response = await fetch(
         `https://realworld.habsidev.com/api/articles/${slug}`
       );
-      if (response.status !== 200) {
-        return setError(true);
-      }
+      if (response.status !== 200) return setError(true);
       const res = await response.json();
       setData(res.article);
     };
     fetchSlug();
   }, [slug]);
 
-  if (error) {
-    return <Navigate to="*" replace />;
-  }
-
-  if (!data) {
-    return <div className="loader"></div>;
-  }
+  if (error) return <Navigate to="*" replace />;
+  if (!data) return <Loader />;
 
   return (
-    <div
-      style={{ marginTop: "26px", boxShadow: "0 4px 12px rgba(0, 0, 0, 0.15)" }}
-    >
-      <li
-        className="list"
-        style={{
-          marginBottom: "0px",
-          marginTop: "0px",
-          borderBottomRightRadius: "0px",
-          borderBottomLeftRadius: "0px",
-          boxShadow: "none",
-        }}
-      >
-        <div className="list__left-side">
-          <p className="left-side__title">{data.title}</p>
-          <div className="left-side__tags">
-            {data.tagList.map((tag, idx) => (
-              <p key={idx}>{tag}</p>
-            ))}
-          </div>
-          <p>{data.author.bio}</p>
-        </div>
-        <div className="list__right-side">
-          <div className="right-side__profile">
-            <span>{data.author.username}</span>
-            <span>{format(new Date(data.createdAt), "MMMM d, yyyy")}</span>
-          </div>
-          <div className="right-side__img">
-            <img src={data.author.image} alt="author photo" />
-          </div>
-        </div>
-      </li>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          padding: "15px",
-          marginTop: "0px",
-          width: "938px",
-          minHeight: "140px",
-          backgroundColor: "rgba(255, 255, 255, 1)",
-        }}
-      >
+    <Container>
+      <ArticlePreview article={data} noShadow />
+      <Description>
         <ReactMarkdown>{data.description}</ReactMarkdown>
-      </div>
-    </div>
+      </Description>
+    </Container>
   );
 }
+
+// Styles
+const Container = styled.div`
+  background-color: white;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+`;
+
+const Description = styled.div`
+  display: flex;
+  justify-content: space-between;
+  padding: 15px;
+  margin: 0 auto;
+  width: 938px;
+  min-height: 140px;
+  background-color: white;
+`;
+
+const Loader = styled.div`
+  margin-top: 50px;
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #3498db;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: spin 1s linear infinite;
+
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+`;

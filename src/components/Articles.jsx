@@ -1,41 +1,24 @@
 import useFetchData from "../Hooks/useFetchData";
-import "react-loading-skeleton/dist/skeleton.css";
 import { Link } from "react-router-dom";
-import { format } from "date-fns";
+import ArticlePreview from "./ArticlePreview";
 import Pagination from "./Pagination";
+import styled from "styled-components";
 
 export default function Articles() {
   const { totalPosts, currentPosts, page, setPage, postPerPage } =
     useFetchData();
 
+  if (!currentPosts.length) return <div className="loader" />;
+
   return (
     <>
-      <ul>
+      <List>
         {currentPosts.map((obj) => (
-          <Link to={`/articles/${obj.slug}`} key={obj.slug}>
-            <li className="list">
-              <div className="list__left-side">
-                <p className="left-side__title">{obj.title}</p>
-                <div className="left-side__tags">
-                  {obj.tagList.map((tag, idx) => (
-                    <p key={idx}>{tag}</p>
-                  ))}
-                </div>
-                <p>{obj.author.bio}</p>
-              </div>
-              <div className="list__right-side">
-                <div className="right-side__profile">
-                  <span>{obj.author.username}</span>
-                  <span>{format(new Date(obj.createdAt), "MMMM d, yyyy")}</span>
-                </div>
-                <div className="right-side__img">
-                  <img src={obj.author.image} alt="author photo" />
-                </div>
-              </div>
-            </li>
-          </Link>
+          <StyledLink to={`/articles/${obj.slug}`} key={obj.slug}>
+            <ArticlePreview article={obj} />
+          </StyledLink>
         ))}
-      </ul>
+      </List>
       <Pagination
         totalPosts={totalPosts}
         postPerPage={postPerPage}
@@ -45,3 +28,14 @@ export default function Articles() {
     </>
   );
 }
+
+// Styles
+const List = styled.ul`
+  list-style: none;
+  padding: 0;
+`;
+
+const StyledLink = styled(Link)`
+  text-decoration: none;
+  color: inherit;
+`;

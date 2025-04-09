@@ -3,6 +3,7 @@ import {
   createRoutesFromElements,
   Route,
   RouterProvider,
+  Navigate,
 } from "react-router-dom";
 
 import { Suspense, lazy } from "react";
@@ -19,6 +20,7 @@ const Articles = lazy(() => import("./components/Articles"));
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<RootLayout />}>
+      <Route index element={<Navigate to="/articles" replace />} />
       <Route
         path="articles"
         element={
@@ -30,7 +32,10 @@ const router = createBrowserRouter(
       <Route path="articles/:slug" element={<Blog />} />
       <Route path="*" element={<NotFound />} />
     </Route>
-  )
+  ),
+  {
+    basename: "/react-4.13",
+  }
 );
 
 function App() {
