@@ -13,6 +13,8 @@ export default function Like({ likeCount }) {
   );
 }
 
+//styles
+
 const Container = styled.div`
   display: flex;
   align-items: center;
