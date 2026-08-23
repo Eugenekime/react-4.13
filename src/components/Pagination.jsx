@@ -1,40 +1,65 @@
-import React from "react";
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export default function Pagination({
-  totalPosts,
-  postPerPage,
-  setPage,
+  articlesCount,
+  onPageChange,
   currentPage,
+  limit,
 }) {
-  const totalPages = Math.ceil(totalPosts / postPerPage);
-  const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
+  const totalPage = Math.ceil(articlesCount / limit);
+  let pages = [];
+
+  console.log(currentPage);
+  if (currentPage <= 4) {
+    pages = [1, 2, 3, 4, 5, '...', totalPage];
+  } else if (totalPage - 4 <= currentPage) {
+    pages = [
+      1,
+      '...',
+      totalPage - 5,
+      totalPage - 4,
+      totalPage - 3,
+      totalPage - 2,
+      totalPage - 1,
+      totalPage,
+    ];
+  } else {
+    pages = [
+      1,
+      '...',
+      currentPage - 2,
+      currentPage - 1,
+      currentPage,
+      currentPage + 1,
+      currentPage + 2,
+      '...',
+      totalPage,
+    ];
+  }
 
   return (
     <Wrapper>
-      <Button
-        onClick={() => setPage((prev) => Math.max(prev - 1, 1))}
-        disabled={currentPage === 1}
-      >
-        &lt;
-      </Button>
-
-      {pages.map((page) => (
-        <PageNumber
-          key={page}
-          $active={currentPage === page}
-          onClick={() => setPage(page)}
-        >
-          {page}
-        </PageNumber>
-      ))}
-
-      <Button
-        onClick={() => setPage((prev) => Math.min(prev + 1, totalPages))}
-        disabled={currentPage === totalPages}
-      >
-        &gt;
-      </Button>
+      {pages.map((page) => {
+        if (page === '...') {
+          return (
+            <PageNumber
+              key={page.index}
+              $active={currentPage === page}
+            >
+              {page}
+            </PageNumber>
+          );
+        }
+        return (
+          <PageNumber
+            key={page.index}
+            $active={currentPage === page}
+            onClick={() => onPageChange(page)}
+          >
+            {page}
+          </PageNumber>
+        );
+      })}
     </Wrapper>
   );
 }
@@ -43,43 +68,15 @@ export default function Pagination({
 const Wrapper = styled.div`
   display: flex;
   justify-content: center;
-  gap: 6px;
   margin: 10px 0px 20px 0px;
 `;
 
-const Button = styled.button`
-  background-color: transparent;
-  padding: 4px 10px;
-  cursor: pointer;
-  color: #333;
-  transition: 0.2s;
-  border: none;
-  font-size: 24px;
-  vertical-align: middle;
-  line-height: 1;
-
-  &:hover:not(:disabled) {
-    background-color: #eee;
-  }
-
-  &:disabled {
-    opacity: 0.4;
-    cursor: not-allowed;
-  }
-`;
-
 const PageNumber = styled.span`
-  padding: 8px 10px 6px 10px;
-  border-radius: 4px;
+  border: 1px solid ${({ theme }) => theme.colors.green};
+  padding: 12px 16px;
   cursor: pointer;
-  color: ${({ $active }) => ($active ? "#fff" : "#333")};
-  background-color: ${({ $active }) =>
-    $active ? "rgba(24, 144, 255, 1)" : "transparent"};
-  font-weight: ${({ $active }) => ($active ? "bold" : "normal")};
+  color: ${({ $active, theme }) => ($active ? 'white' : theme.colors.green)};
+  background-color: ${({ $active, theme }) =>
+    $active ? theme.colors.green : 'white'};
   transition: 0.2s;
-
-  &:hover {
-    background-color: ${({ $active }) =>
-      $active ? "rgba(24, 144, 255, 1)" : "#eee"};
-  }
 `;
