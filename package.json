@@ -16,10 +16,8 @@
     "@fortawesome/free-solid-svg-icons": "^7.3.1",
     "@fortawesome/react-fontawesome": "^3.5.0",
     "date-fns": "^4.1.0",
-    "lucide-react": "^1.32.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "react-loading-skeleton": "^3.5.0",
     "react-markdown": "^10.1.0",
     "react-router-dom": "^7.4.1",
     "styled-components": "^6.1.17"
