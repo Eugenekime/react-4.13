@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export default function Pagination({
   articlesCount,
@@ -11,11 +11,11 @@ export default function Pagination({
 
   console.log(currentPage);
   if (currentPage <= 4) {
-    pages = [1, 2, 3, 4, 5, '...', totalPage];
+    pages = [1, 2, 3, 4, 5, "...", totalPage];
   } else if (totalPage - 4 <= currentPage) {
     pages = [
       1,
-      '...',
+      "...",
       totalPage - 5,
       totalPage - 4,
       totalPage - 3,
@@ -26,13 +26,13 @@ export default function Pagination({
   } else {
     pages = [
       1,
-      '...',
+      "...",
       currentPage - 2,
       currentPage - 1,
       currentPage,
       currentPage + 1,
       currentPage + 2,
-      '...',
+      "...",
       totalPage,
     ];
   }
@@ -40,12 +40,9 @@ export default function Pagination({
   return (
     <Wrapper>
       {pages.map((page) => {
-        if (page === '...') {
+        if (page === "...") {
           return (
-            <PageNumber
-              key={page.index}
-              $active={currentPage === page}
-            >
+            <PageNumber key={page.index} $active={currentPage === page}>
               {page}
             </PageNumber>
           );
@@ -75,8 +72,8 @@ const PageNumber = styled.span`
   border: 1px solid ${({ theme }) => theme.colors.green};
   padding: 12px 16px;
   cursor: pointer;
-  color: ${({ $active, theme }) => ($active ? 'white' : theme.colors.green)};
+  color: ${({ $active, theme }) => ($active ? "white" : theme.colors.green)};
   background-color: ${({ $active, theme }) =>
-    $active ? theme.colors.green : 'white'};
+    $active ? theme.colors.green : "white"};
   transition: 0.2s;
 `;

@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 function Banner() {
   return (
@@ -34,7 +34,7 @@ const MainText = styled(Link)`
   font-size: 56px;
   font-weight: 700;
   line-height: 64px;
-  font-family: 'Titillium Web';
+  font-family: "Titillium Web";
   color: white;
   text-decoration: underline;
   text-decoration-thickness: 1px;

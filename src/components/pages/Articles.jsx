@@ -1,12 +1,12 @@
-import { Link } from 'react-router-dom';
-import ArticlePreview from './ArticlePreview';
-import { useEffect, useState } from 'react';
-import getArticles from '../../api/GET/getArticles';
-import Pagination from '../Pagination';
-import styled from 'styled-components';
-import Banner from '../Banner';
-import BarTags from '../BarTags';
-import Loader from '../loader/loader';
+import { Link } from "react-router-dom";
+import ArticlePreview from "./ArticlePreview";
+import { useEffect, useState } from "react";
+import getArticles from "../../api/GET/getArticles";
+import Pagination from "../Pagination";
+import styled from "styled-components";
+import Banner from "../Banner";
+import BarTags from "../BarTags";
+import Loader from "../loader/loader";
 
 export default function Articles() {
   const [loading, setLoading] = useState(true);
@@ -37,10 +37,7 @@ export default function Articles() {
         <BarTags />
         <List>
           {articles.map((obj) => (
-            <StyledLink
-              to={`/articles/${obj.slug}`}
-              key={obj.slug}
-            >
+            <StyledLink to={`/articles/${obj.slug}`} key={obj.slug}>
               <ArticlePreview article={obj} />
             </StyledLink>
           ))}

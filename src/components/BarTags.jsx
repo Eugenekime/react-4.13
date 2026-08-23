@@ -1,7 +1,7 @@
-import styled from 'styled-components';
-import { useState, useEffect } from 'react';
-import getTags from '../api/GET/getTags.js';
-import TagList from './TagList.jsx';
+import styled from "styled-components";
+import { useState, useEffect } from "react";
+import getTags from "../api/GET/getTags.js";
+import TagList from "./TagList.jsx";
 
 export default function BarTags() {
   const [tags, setTags] = useState([]);
@@ -23,7 +23,7 @@ export default function BarTags() {
       <TagList newTags={toggle ? tags : tags.slice(0, 7)} />
       <ButtonContainer>
         <CloseOpenButton onClick={() => setToggle(!toggle)}>
-          {toggle ? 'Hide' : 'Show more'}
+          {toggle ? "Hide" : "Show more"}
         </CloseOpenButton>
       </ButtonContainer>
     </Container>
@@ -42,7 +42,7 @@ const Container = styled.div`
 `;
 
 const Title = styled.p`
-  font-family: 'Titillium Web';
+  font-family: "Titillium Web";
   font-weight: 700;
   font-size: 16px;
   color: ${({ theme }) => theme.colors.black};
