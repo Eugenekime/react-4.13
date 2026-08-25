@@ -1,11 +1,12 @@
-import { useParams, Navigate } from "react-router-dom";
-import { useEffect, useState } from "react";
-import getSingleArticle from "../../api/GET/getSingleArticle";
-import Loader from "../loader/loader";
-import styled from "styled-components";
-import ReactMarkdown from "react-markdown";
-import TagList from "../TagList";
-import ArticleAuthor from "../ArticleAuthor";
+import { useParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import getSingleArticle from '../../api/GET/getSingleArticle';
+import Loader from '../loader/loader';
+import styled from 'styled-components';
+import ReactMarkdown from 'react-markdown';
+import TagList from '../TagList';
+import ArticleAuthor from '../ArticleAuthor';
+import ErrorMessage from '../ErrorMessage';
 
 export default function SingleArticle() {
   const { slug } = useParams();
@@ -24,7 +25,7 @@ export default function SingleArticle() {
     fetchSlug();
   }, [slug]);
 
-  if (error) return <Navigate to="*" replace />;
+  if (error) return <ErrorMessage message={'article'} />;
   if (!data) return <Loader />;
 
   return (
@@ -67,7 +68,7 @@ const InnerContainerOfBanner = styled.div`
   gap: 10px;
 `;
 const Title = styled.p`
-  font-family: "Titillium Web";
+  font-family: 'Titillium Web';
   font-size: 46px;
   font-weight: 700;
   line-height: 40px;

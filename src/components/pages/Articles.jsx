@@ -1,15 +1,17 @@
-import { Link } from "react-router-dom";
-import ArticlePreview from "./ArticlePreview";
-import { useEffect, useState } from "react";
-import getArticles from "../../api/GET/getArticles";
-import Pagination from "../Pagination";
-import styled from "styled-components";
-import Banner from "../Banner";
-import BarTags from "../BarTags";
-import Loader from "../loader/loader";
+import { Link } from 'react-router-dom';
+import ArticlePreview from './ArticlePreview';
+import { useEffect, useState } from 'react';
+import getArticles from '../../api/GET/getArticles';
+import Pagination from '../Pagination';
+import styled from 'styled-components';
+import Banner from '../Banner';
+import BarTags from '../BarTags';
+import Loader from '../loader/loader';
+import ErrorMessage from '../ErrorMessage';
 
 export default function Articles() {
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
   const [articles, setArticles] = useState([]);
   const [page, setPage] = useState(1);
   const [articlesCount, setArticlesCount] = useState(0);
@@ -18,17 +20,22 @@ export default function Articles() {
 
   useEffect(() => {
     async function fetchArticles() {
-      const data = await getArticles(limit, offset);
-
-      setArticlesCount(data.articlesCount);
-      setArticles(data.articles);
-
-      setLoading(false);
+      try {
+        const data = await getArticles(limit, offset);
+        setArticlesCount(data.articlesCount);
+        setArticles(data.articles);
+      } catch {
+        setError(true);
+      } finally {
+        setLoading(false);
+      }
     }
     fetchArticles();
   }, [offset]);
 
   if (loading) return <Loader />;
+
+  if (error) return <ErrorMessage message={'articles'} />;
 
   return (
     <>
