@@ -1,7 +1,7 @@
-import styled from "styled-components";
-import { format } from "date-fns";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser } from "@fortawesome/free-solid-svg-icons";
+import styled from 'styled-components';
+import { format } from 'date-fns';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUser } from '@fortawesome/free-solid-svg-icons';
 
 export default function ArticleAuthor({ author, createdAt }) {
   return (
@@ -14,7 +14,7 @@ export default function ArticleAuthor({ author, createdAt }) {
 
       <Author>
         <UserName>{author.username}</UserName>
-        <UserDate>{format(new Date(createdAt), "dd MMMM yyyy")}</UserDate>
+        <UserDate>{format(new Date(createdAt), 'dd MMMM yyyy')}</UserDate>
       </Author>
     </AuthorContainer>
   );

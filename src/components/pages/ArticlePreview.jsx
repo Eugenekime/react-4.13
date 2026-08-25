@@ -1,6 +1,6 @@
-import styled from "styled-components";
-import Like from "../buttons/like";
-import ArticleAuthor from "../ArticleAuthor";
+import styled from 'styled-components';
+import Like from '../buttons/like';
+import ArticleAuthor from '../ArticleAuthor';
 
 export default function ArticlePreview({ article }) {
   return (
@@ -14,7 +14,7 @@ export default function ArticlePreview({ article }) {
         <Description>{article.description}</Description>
         <TagContainer>
           {article.tagList.map((tag, i) =>
-            tag ? <Tag key={i}>{tag}</Tag> : <div key={i} />,
+            tag ? <Tag key={i}>{tag}</Tag> : <div key={i} />
           )}
         </TagContainer>
       </MainContainer>
@@ -51,7 +51,7 @@ const MainContainer = styled.div`
 `;
 
 const Title = styled.p`
-  font-family: "Titillium Web";
+  font-family: 'Titillium Web';
   font-weight: 600;
   font-size: 32px;
   line-height: 36px;
